@@ -4,4 +4,4 @@ tags={
 	"Gameplay"
 }
 name="Factions+"
-supported_version="1.11.3"
+supported_version="1.12.4"
