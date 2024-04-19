@@ -963,7 +963,7 @@ courtly_faction = {
 	sort_order = 6
 
 	show_special_title = yes
-	name = FACTION_CLAMAINT_DYNAMIC_NAME
+	name = FACTION_COURTLY_NAME
 
 	discontent_progress = {
 		base = 0
@@ -988,7 +988,7 @@ courtly_faction = {
 			FACTION_TYPE2 = independence_faction
 			FACTION_TYPE3 = populist_faction
 			# Possibly put above populist, but comp issues?
-			FACTION_TYPE4 = courtly_faction
+			# FACTION_TYPE4 = courtly_faction
 		}
 	}
 
@@ -1695,8 +1695,8 @@ succession_electoral_faction = {
 
 	sort_order = 5
 
-	show_special_title = yes
-	name = FACTION_CLAMAINT_DYNAMIC_NAME
+	# show_special_title = yes
+	name = FACTION_SUCCESSION_ELECTORAL_NAME
 
 	discontent_progress = {
 		base = 0
@@ -1722,18 +1722,21 @@ succession_electoral_faction = {
 			FACTION_TYPE3 = populist_faction
 			# Possibly put above populist, but comp issues?
 			# FACTION_TYPE4 = courtly_faction
+			# FACTION_TYPE5 = succession_electoral_faction
 		}
 	}
 
 	is_valid = { # If the FACTION itself is valid
-		NOR = {
-			scope:liege = {
-				has_title_law_flag = elective_succession_law
+		faction_target = {
+			is_alive = yes
+			government_has_flag = government_is_feudal
+			NOT = {
+				has_order_of_succession = election
 			}
 		}
 	}
 
-	demand = {
+	demand = { # The effect of pressing demand
 		save_scope_as = faction
 
 		faction_leader = {
@@ -1914,7 +1917,7 @@ succession_electoral_faction = {
 
 	multiple_targeting = yes
 
-	special_character_title = "FACTIONS_WINDOW_CLAIMANT"
+	# special_character_title = "FACTIONS_WINDOW_CLAIMANT"
 
 	ignore_soft_block = yes
 }
