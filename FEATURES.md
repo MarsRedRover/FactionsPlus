@@ -49,6 +49,10 @@
 ### [Threatened]
 	- Description: This faction will  
 	- Vassal Stances:
+		= Parochial
+		- Zealot
+		- Minority
+		- Minority Landholder
 
 ### [Allegiance]
 	- Description: This faction will  

@@ -143,3 +143,4 @@ namespace = faction_invitation
 # 		name = FACTION_CLAIMANT_INVITE_REFUSED_OPT
 # 	}
 # }
+
