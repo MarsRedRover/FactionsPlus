@@ -92,6 +92,9 @@
 		- Fickle 
 
 ### [Succession High Partition]
+	- Description: This faction will
+	- Vassal Stances:
+	- Vassal Personalities:
 
 ### [Succession Electoral]
 	- Description: This faction will  
