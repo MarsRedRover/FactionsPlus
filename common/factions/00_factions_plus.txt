@@ -264,7 +264,7 @@ elective_feudal_faction = {
 
 	character_allow_join = yes
 
-	multiple_targeting = yes
+	multiple_targeting = no
 
 	ignore_soft_block = yes
 }
