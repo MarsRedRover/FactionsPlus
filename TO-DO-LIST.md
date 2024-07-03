@@ -9,7 +9,7 @@
 - Add localization for everything within elective feudal faction
 
 [Adjust]
-- Balancing
+- Balancing for creating the faction & joining
 
 [Finish]
 
