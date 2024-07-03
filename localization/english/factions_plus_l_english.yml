@@ -1,0 +1,7 @@
+﻿l_english:
+ # Succession Faction
+ electoral_feudal_faction:0 "Electoral Succession Faction"
+ electoral_feudal_faction_desc:0 "The Succession [faction|E] seeks to change the power through elections by changing [liege|E]'s [primary_title|E] succession through election."
+ electoral_feudal_faction_short_effect_desc:0 "Wants different [succession_law|E]"
+ FACTION_ELECTORAL_FEUDAL_NAME:0 "Electoral Faction"
+ FACTION_ELECTORAL_FEUDAL_TITLE_NAME:0 "Electoral Change Revolt"

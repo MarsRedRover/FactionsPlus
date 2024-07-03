@@ -2,15 +2,16 @@
 
 namespace = faction_demand
 
-# Succession Electoral Faction Demand
-faction_demand.0501 = {
+# Electoral (Feudal) Faction Demand
+# by Marsonus
+faction_demand.3001 = {
 	type = letter_event
 	sender = scope:faction_leader
 	opening = {
-		desc = "FACTION_DEMAND_SUCCESSION_ELECTORAL"
+		desc = "FACTION_DEMAND_ELECTORAL_FEUDAL"
 	}
-	desc = "FACTION_DEMAND_SUCCESSION_ELECTORAL_DESC"
-	
+	desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_DESC"
+
 	trigger = {
 		exists = scope:faction
 	}
@@ -18,26 +19,20 @@ faction_demand.0501 = {
 	option = {
 		name = "FACTION_DEMAND_ACCEPT"
 
-		# This effect should always be placed here, _before_ all the other effects in the block.
 		trigger_event = { on_action = on_faction_demand_accepted }
 
-		add_dread = medium_dread_loss
-
-		# LEGITIMACY LOSS FOR ACCEPTING FACTION DEMANDS
-		faction_accept_demand_legitimacy_effect = yes
-		
-		clear_title_laws_effects = yes
-		add_title_law = elective_succession_law
-		add_prestige = -200
-
-		add_character_flag = {
-			flag = recent_succession_electoral_faction_war
-			years = 10
+		root = {
+			save_scope_as = faction_target
+			add_dread = medium_dread_loss
+			# NO LEGITIMACY LOSS FOR ACCEPTING FACTION DEMANDS
+			faction_accept_demand_legitimacy_effect = no
 		}
+
+		add_title_law = feudal_elective_succession_law
 
 		scope:faction_leader = {
 			trigger_event = {
-				id = faction_demand.0102
+				id = faction_demand.3002
 			}
 		}
 
@@ -97,10 +92,10 @@ faction_demand.0501 = {
 				faction_start_war = {}
 			}
 		}
-		
+
 		scope:faction_leader = {
 			trigger_event = {
-				id = faction_demand.0103
+				id = faction_demand.3003
 				days = 1
 			}
 		}
@@ -122,75 +117,76 @@ faction_demand.0501 = {
 				add = 1000
 				scope:faction = { faction_power < 40 }
 			}
-		}
+		}		
 	}
 }
 
-# Liberty Faction Demand Accepted
-# by Henrik Fåhraeus
-faction_demand.0102 = {
+# Electoral (Feudal) Faction Demand Accepted
+# by Marsonus
+faction_demand.3002 = {
 	type = letter_event
-	sender = scope:faction_target
+	sender = scope:faction.faction_target
 	opening = {
-		desc = "FACTION_DEMAND_LIBERTY_ACCEPTED"
+		desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_ACCEPTED"
 	}
-	desc = "FACTION_DEMAND_LIBERTY_ACCEPTED_DESC"
+	desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_ACCEPTED_DESC"
 
 	option = {
 		name = "FACTION_DEMAND_ACCEPTED_OPT"
-		custom_tooltip = faction_demand.0102.tt
+		custom_tooltip = faction_demand.3002.tt
 	}
 }
 
-# Liberty Faction Demand Refused
-# by Henrik Fåhraeus
-faction_demand.0103 = {
+# Electoral (Feudal) Faction Demand Refused
+# by Marsonus
+faction_demand.3003 = {
 	type = letter_event
-	sender = scope:faction_target
+	sender = scope:faction_target 
 	opening = {
-		desc = "FACTION_DEMAND_LIBERTY_REFUSED"
+		desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_REFUSED"
 	}
-	desc = "FACTION_DEMAND_LIBERTY_REFUSED_DESC"
+	desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_REFUSED_DESC"
 
 	option = {
 		name = "FACTION_DEMAND_REFUSED_OPT"
 		scope:faction = {
 			faction_start_war = {}
-			
+
 			every_faction_member = {
-				limit = { NOT = { this = scope:faction.faction_leader } }
-				trigger_event = faction_demand.0104
+				limit = { NOT = { this = scope:faction.faction_leader } {}
+				trigger_event = faction_demand.3004
 			}
 		}
 	}
 }
 
-# Liberty Faction Demand Refused Member Notice
-# by Henrik Fåhraeus
-faction_demand.0104 = {
+# Electoral (Feudal) Faction Demand Refused Member Notice
+# by Marsonus
+faction_demand.3004 = {
 	type = letter_event
 	sender = scope:faction_target
 	opening = {
-		desc = "FACTION_DEMAND_LIBERTY_REFUSED"
+		desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_REFUSED"
 	}
-	desc = "FACTION_DEMAND_LIBERTY_REFUSED_DESC"
+	desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_DESC"
 
 	option = {
-		name = "FACTION_DEMAND_REFUSED_OPT"	
+		name = "FACTION_DEMAND_REFUSED_OPT"
 	}
 }
 
-# Liberty Faction Demand Send Notice
-# by Henrik Fåhraeus
-faction_demand.0105 = {
+
+# Electoral (Feudal) Faction Demand Send Notice
+# by Marsonus
+faction_demand.3005 = {
 	type = letter_event
 	sender = scope:faction_leader
 	opening = {
-		desc = "FACTION_DEMAND_LIBERTY_SEND_DEMAND_NOTIFICATION"
+		desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_SEND_DEMAND_NOTIFICATION"
 	}
-	desc = "FACTION_DEMAND_LIBERTY_SEND_DEMAND_NOTIFICATION_DESC"
+	desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_SEND_DEMAND_NOTIFICATION_DESC"
 
 	option = {
-		name = "FACTION_DEMAND_SEND_DEMAND_NOTIFICATION_OPT"	
+		name = "FACTION_DEMAND_SEND_DEMAND_NOTIFICATION_OPT"
 	}
 }
