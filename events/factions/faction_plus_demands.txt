@@ -25,19 +25,11 @@ faction_demand.3001 = {
 		# NO LEGITIMACY LOSS FOR ACCEPTING FACTION DEMANDS
 		faction_accept_demand_legitimacy_effect = no
 
-		if = {
-			limit = {
-				NOR = {
-					has_title_law = princely_elective_succession_law
-					has_title_law = feudal_elective_succession_law
-					has_title_law = saxon_elective_succession_law
-					has_title_law = scandinavian_elective_succession_law
-					has_title_law = gaelic_elective_succession_law
-					has_title_law = tribal_elective_succession_law
-				}
-			}
+
+		scope:faction.faction_target.primary_title = {
 			add_title_law = feudal_elective_succession_law
-		}
+		} 
+
 		add_prestige = -200
 
 		add_character_flag = {
