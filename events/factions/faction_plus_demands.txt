@@ -2,15 +2,15 @@
 
 namespace = faction_demand
 
-# Electoral (Feudal) Faction Demand
+# Elective (Feudal) Faction Demand
 # by Marsonus
 faction_demand.3001 = {
 	type = letter_event
 	sender = scope:faction_leader
 	opening = {
-		desc = "FACTION_DEMAND_ELECTORAL_FEUDAL"
+		desc = "FACTION_DEMAND_ELECTIVE_FEUDAL"
 	}
-	desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_DESC"
+	desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_DESC"
 
 	trigger = {
 		exists = scope:faction
@@ -21,14 +21,29 @@ faction_demand.3001 = {
 
 		trigger_event = { on_action = on_faction_demand_accepted }
 
-		root = {
-			save_scope_as = faction_target
-			add_dread = medium_dread_loss
-			# NO LEGITIMACY LOSS FOR ACCEPTING FACTION DEMANDS
-			faction_accept_demand_legitimacy_effect = no
-		}
+		add_dread = medium_dread_loss
+		# NO LEGITIMACY LOSS FOR ACCEPTING FACTION DEMANDS
+		faction_accept_demand_legitimacy_effect = no
 
-		add_title_law = feudal_elective_succession_law
+		if = {
+			limit = {
+				NOR = {
+					has_title_law = princely_elective_succession_law
+					has_title_law = feudal_elective_succession_law
+					has_title_law = saxon_elective_succession_law
+					has_title_law = scandinavian_elective_succession_law
+					has_title_law = gaelic_elective_succession_law
+					has_title_law = tribal_elective_succession_law
+				}
+			}
+			add_title_law = feudal_elective_succession_law
+		}
+		add_prestige = -200
+
+		add_character_flag = {
+			flag = recent_succession_faction_war
+			years = 10
+		}
 
 		scope:faction_leader = {
 			trigger_event = {
@@ -121,15 +136,15 @@ faction_demand.3001 = {
 	}
 }
 
-# Electoral (Feudal) Faction Demand Accepted
+# Elective (Feudal) Faction Demand Accepted
 # by Marsonus
 faction_demand.3002 = {
 	type = letter_event
 	sender = scope:faction.faction_target
 	opening = {
-		desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_ACCEPTED"
+		desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_ACCEPTED"
 	}
-	desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_ACCEPTED_DESC"
+	desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_ACCEPTED_DESC"
 
 	option = {
 		name = "FACTION_DEMAND_ACCEPTED_OPT"
@@ -137,15 +152,15 @@ faction_demand.3002 = {
 	}
 }
 
-# Electoral (Feudal) Faction Demand Refused
+# Elective (Feudal) Faction Demand Refused
 # by Marsonus
 faction_demand.3003 = {
 	type = letter_event
 	sender = scope:faction_target 
 	opening = {
-		desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_REFUSED"
+		desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_REFUSED"
 	}
-	desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_REFUSED_DESC"
+	desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_REFUSED_DESC"
 
 	option = {
 		name = "FACTION_DEMAND_REFUSED_OPT"
@@ -160,15 +175,15 @@ faction_demand.3003 = {
 	}
 }
 
-# Electoral (Feudal) Faction Demand Refused Member Notice
+# Elective (Feudal) Faction Demand Refused Member Notice
 # by Marsonus
 faction_demand.3004 = {
 	type = letter_event
 	sender = scope:faction_target
 	opening = {
-		desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_REFUSED"
+		desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_REFUSED"
 	}
-	desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_DESC"
+	desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_DESC"
 
 	option = {
 		name = "FACTION_DEMAND_REFUSED_OPT"
@@ -176,15 +191,15 @@ faction_demand.3004 = {
 }
 
 
-# Electoral (Feudal) Faction Demand Send Notice
+# Elective (Feudal) Faction Demand Send Notice
 # by Marsonus
 faction_demand.3005 = {
 	type = letter_event
 	sender = scope:faction_leader
 	opening = {
-		desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_SEND_DEMAND_NOTIFICATION"
+		desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_SEND_DEMAND_NOTIFICATION"
 	}
-	desc = "FACTION_DEMAND_ELECTORAL_FEUDAL_SEND_DEMAND_NOTIFICATION_DESC"
+	desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_SEND_DEMAND_NOTIFICATION_DESC"
 
 	option = {
 		name = "FACTION_DEMAND_SEND_DEMAND_NOTIFICATION_OPT"

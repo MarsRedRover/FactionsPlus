@@ -1,13 +1,13 @@
 ﻿# TODO: FINISH
-electoral_feudal_faction = {
-	casus_belli = electoral_feudal_faction
+elective_feudal_faction = {
+	casus_belli = elective_feudal_faction
 
-	short_effect_desc = electoral_feudal_faction_short_effect_desc
+	short_effect_desc = elective_feudal_faction_short_effect_desc
 
 	sort_order = 5
 
 	# show_special_title = yes
-	name = FACTION_ELECTORAL_FEUDAL_NAME
+	name = FACTION_ELECTIVE_FEUDAL_NAME
 
 	discontent_progress = {
 		base = 0
@@ -109,7 +109,7 @@ electoral_feudal_faction = {
 	}
 
 	can_character_create_ui = {
-		base_faction_trigger = { FACTION_TYPE = succession_electoral_faction }
+		base_faction_trigger = { FACTION_TYPE = succession_elective_faction }
 
 		common_can_character_create_trigger = {
 			FACTION_TARGET = scope:target
@@ -201,7 +201,7 @@ electoral_feudal_faction = {
 	# 		THRESHOLD = 80
 	# 	}
 
-	# 	electoral_feudal_faction_modifiers = {
+	# 	elective_feudal_faction_modifiers = {
 	# 		FACTION_TARGET = scope:target
 	# 	}
 	# }
@@ -228,7 +228,7 @@ electoral_feudal_faction = {
 	# 		THRESHOLD = scope:faction.faction_power_threshold
 	# 	}
 
-	# 	electoral_feudal_faction_modifiers = {
+	# 	elective_feudal_faction_modifiers = {
 	# 		FACTION_TARGET = scope:faction.faction_target
 	# 	}
 

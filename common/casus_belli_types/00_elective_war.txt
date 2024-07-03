@@ -1,4 +1,5 @@
-﻿courtly_faction_war = {
+﻿# Triggers as a result of the Liberty Faction demand
+elective_feudal_faction_war = {
 	icon = dissolution_war
 	group = civil_war
 	ai_only_against_liege = yes
@@ -27,11 +28,11 @@
 		first_valid = {
 			triggered_desc = {
 				trigger = { scope:defender = { is_local_player = yes } }
-				desc = liberty_war_victory_defender_desc
+				desc = elective_feudal_war_victory_defender_desc
 			}
-			desc = liberty_war_victory_desc
+			desc = elective_feudal_war_victory_desc
 		}
-		desc = liberty_war_victory_end_desc
+		desc = elective_feudal_war_victory_end_desc
 
 	}
 
@@ -40,6 +41,9 @@
 
 		#EP2 Accolade glory gain from winning against higher ranked enemy
 		scope:attacker = { accolade_attacker_war_end_glory_gain_med_effect = yes }
+
+		# LEGITIMACY FROM LOSING FACTION WAR
+		faction_war_end_defeat_legitimacy_effect = yes
 
 		scope:defender = {
 			if = {
@@ -212,6 +216,9 @@
 			}
 			add_dread = medium_dread_gain
 			add_achievement_flag_effect = { FLAG = achievement_know_your_place_flag }
+
+			# LEGITIMACY FROM WINNING FACTION WAR
+			faction_war_end_victory_legitimacy_effect = yes
 		}
 		on_lost_faction_revolt_war = yes
 	}
