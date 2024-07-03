@@ -96,8 +96,8 @@
 	- Vassal Stances:
 	- Vassal Personalities:
 
-### [Succession Electoral]
-	- Description: This faction will  
+### [Succession Feudal Elective]
+	- Description: This faction will demand for a feudal elective system to be implemented if there is not already one. 
 	- Vassal Stances:
 		- Courtly
 		- Minority
@@ -123,9 +123,9 @@
 		- Stubborn
 		- Fickle
 
-### [Succession Saxon Electoral]
+### [Succession Saxon Elective]
 
-### [Succession Scandinavian Electoral]
+### [Succession Scandinavian Elective]
 
-### [Succession Tanistry Electoral]
+### [Succession Tanistry Elective]
 
