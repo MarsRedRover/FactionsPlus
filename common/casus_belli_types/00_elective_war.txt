@@ -46,19 +46,10 @@ elective_feudal_faction_war = {
 		faction_war_end_defeat_legitimacy_effect = yes
 
 		scope:defender = {
-		if = {
-			limit = {
-				NOR = {
-					has_title_law = princely_elective_succession_law
-					has_title_law = feudal_elective_succession_law
-					has_title_law = saxon_elective_succession_law
-					has_title_law = scandinavian_elective_succession_law
-					has_title_law = gaelic_elective_succession_law
-					has_title_law = tribal_elective_succession_law
-				}
+
+			scope:defender.primary_title = {
+				add_title_law = feudal_elective_succession_law
 			}
-			add_title_law = feudal_elective_succession_law
-		}
 			
 			add_prestige = -500
 

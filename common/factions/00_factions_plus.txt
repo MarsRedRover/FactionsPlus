@@ -1,6 +1,6 @@
 ﻿# TODO: FINISH
 elective_feudal_faction = {
-	casus_belli = elective_feudal_faction
+	casus_belli = elective_feudal_faction_war
 
 	short_effect_desc = elective_feudal_faction_short_effect_desc
 

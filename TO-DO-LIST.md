@@ -2,8 +2,8 @@
 
 [Fix]
 - Multiple factions created by different leaders
-- War CB doesn't work properly
-- Accepting demand doesn't change title law
+<!-- - War CB doesn't work properly -->
+<!-- - Accepting demand doesn't change title law -->
 
 [Add]
 
