@@ -41,10 +41,10 @@
 		- Minority
 		- Minority Landholder
 
-### [Slave Revolt]
+<!-- ### [Slave Revolt]
 	- Description: This faction will  
 	- Vassal Stances:
-		- Minority
+		- Minority -->
 
 ### [Threatened]
 	- Description: This faction will  
@@ -128,4 +128,3 @@
 ### [Succession Scandinavian Elective]
 
 ### [Succession Tanistry Elective]
-
