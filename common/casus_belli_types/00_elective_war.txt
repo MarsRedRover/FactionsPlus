@@ -1,4 +1,4 @@
-﻿# Triggers as a result of the Liberty Faction demand
+﻿# Triggers as a result of the Elective Feudal Faction demand
 elective_feudal_faction_war = {
 	icon = dissolution_war
 	group = civil_war
@@ -6,7 +6,7 @@ elective_feudal_faction_war = {
 	allow_hostages = no
 	allowed_for_character = {
 		scope:attacker = {
-			is_leading_faction_type = liberty_faction
+			is_leading_faction_type = elective_feudal_faction
 		}
 	}
 
@@ -46,30 +46,19 @@ elective_feudal_faction_war = {
 		faction_war_end_defeat_legitimacy_effect = yes
 
 		scope:defender = {
-			if = {
-				limit = { has_realm_law = crown_authority_1 }
-				add_realm_law = crown_authority_0
+		if = {
+			limit = {
+				NOR = {
+					has_title_law = princely_elective_succession_law
+					has_title_law = feudal_elective_succession_law
+					has_title_law = saxon_elective_succession_law
+					has_title_law = scandinavian_elective_succession_law
+					has_title_law = gaelic_elective_succession_law
+					has_title_law = tribal_elective_succession_law
+				}
 			}
-			if = {
-				limit = { has_realm_law = crown_authority_2 }
-				add_realm_law = crown_authority_1
-			}
-			if = {
-				limit = { has_realm_law = crown_authority_3 }
-				add_realm_law = crown_authority_2
-			}
-			if = {
-				limit = { has_realm_law = tribal_authority_1 }
-				add_realm_law = tribal_authority_0
-			}
-			if = {
-				limit = { has_realm_law = tribal_authority_2 }
-				add_realm_law = tribal_authority_1
-			}
-			if = {
-				limit = { has_realm_law = tribal_authority_3 }
-				add_realm_law = tribal_authority_2
-			}
+			add_title_law = feudal_elective_succession_law
+		}
 			
 			add_prestige = -500
 
@@ -95,8 +84,8 @@ elective_feudal_faction_war = {
 			}
 
 			add_character_flag = {
-				flag = recent_liberty_faction_war
-				years = liberty_war_victory_cooldown
+				flag = recent_elective_feudal_faction_war
+				years = elective_feudal_war_victory_cooldown
 			}
 		}
 
@@ -118,11 +107,11 @@ elective_feudal_faction_war = {
 							}
 							leave_faction_with_cooldown_effect = {
 								FACTION = scope:attacker.joined_faction
-								YEARS = liberty_war_victory_cooldown
+								YEARS = elective_feudal_war_victory_cooldown
 							}
 						}
 						else = {
-							add_faction_cooldown_effect = { YEARS = liberty_war_victory_cooldown }
+							add_faction_cooldown_effect = { YEARS = elective_feudal_war_victory_cooldown }
 						}
 					}
 				}
@@ -141,7 +130,7 @@ elective_feudal_faction_war = {
 		first_valid = {
 			triggered_desc = {
 				trigger = { scope:defender = { is_local_player = yes } }
-				desc = liberty_war_white_peace_defender_desc
+				desc = elective_feudal_war_white_peace_defender_desc
 			}
 			triggered_desc = {
 				trigger = {
@@ -149,11 +138,11 @@ elective_feudal_faction_war = {
 						any_faction_member = { is_local_player = yes }
 					}
 				}
-				desc = liberty_war_white_peace_attacker_desc
+				desc = elective_feudal_war_white_peace_attacker_desc
 			}
-			desc = liberty_war_white_peace_desc
+			desc = elective_feudal_war_white_peace_desc
 		}
-		desc = liberty_war_white_peace_end_desc
+		desc = elective_feudal_war_white_peace_end_desc
 
 	}
 
@@ -180,7 +169,7 @@ elective_feudal_faction_war = {
  				arrogant = medium_stress_impact_gain
  			}
 			add_character_flag = {
-				flag = recent_liberty_faction_war
+				flag = recent_elective_feudal_faction_war
 				years = faction_war_white_peace_cooldown
 			}
 		}
@@ -191,7 +180,7 @@ elective_feudal_faction_war = {
 		first_valid = {
 			triggered_desc = {
 				trigger = { scope:defender = { is_local_player = yes } }
-				desc = liberty_war_defeat_defender_desc
+				desc = elective_feudal_war_defeat_defender_desc
 			}
 			triggered_desc = {
 				trigger = {
@@ -199,11 +188,11 @@ elective_feudal_faction_war = {
 						any_faction_member = { is_local_player = yes }
 					}
 				}
-				desc = liberty_war_defeat_attacker_desc
+				desc = elective_feudal_war_defeat_attacker_desc
 			}
-			desc = liberty_war_defeat_desc
+			desc = elective_feudal_war_defeat_desc
 		}
-		desc = liberty_war_defeat_end_desc
+		desc = elective_feudal_war_defeat_end_desc
 
 	}
 
@@ -211,7 +200,7 @@ elective_feudal_faction_war = {
 		scope:attacker = { show_pow_release_message_effect = yes }
 		scope:defender = {
 			add_character_flag = {
-				flag = recent_liberty_faction_war
+				flag = recent_elective_feudal_faction_war
 				years = faction_war_defeat_cooldown
 			}
 			add_dread = medium_dread_gain
@@ -235,7 +224,7 @@ elective_feudal_faction_war = {
 	attacker_allies_inherit = no
 	defender_allies_inherit = yes
 
-	war_name = "LIBERTY_WAR_NAME"
+	war_name = "ELECTIVE_FEUDAL_WAR_NAME"
 
 	interface_priority = 80
 
