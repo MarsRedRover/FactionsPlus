@@ -1,522 +1,253 @@
-﻿# TODO: FINISH
-elective_feudal_faction = {
-	casus_belli = elective_feudal_faction_war
+﻿elective_feudal_faction = {
+    casus_belli = elective_feudal_faction_war
 
-	short_effect_desc = elective_feudal_faction_short_effect_desc
+    short_effect_desc = elective_feudal_faction_short_effect_desc
 
-	sort_order = 5
+    sort_order = 6
 
-	# show_special_title = yes
-	name = FACTION_ELECTIVE_FEUDAL_NAME
+    discontent_progress = {
+        base = 0
+        common_discontent_progress_modifier = yes
+    }
 
-	discontent_progress = {
-		base = 0
-
-		common_discontent_progress_modifier = yes
-	}
-
-	power_threshold = {
-		base = 80
-
-		modifier = {
-			add = 20
-			faction_target = {
-				has_perk = hard_rule_perk
-			}
-			desc = "FACTION_POWER_HARD_RULE"
-		}
-
-		#Lower the threshold depending on the state of other factions
-		dynamic_power_threshold_scripted_modifier = {
-			FACTION_TYPE1 = liberty_faction
-			FACTION_TYPE2 = independence_faction
-			FACTION_TYPE3 = populist_faction
-		}
-	}
-
-	is_valid = { # If the FACTION itself is valid
-		liege = {
-			is_alive = yes
-			government_has_flag = government_is_feudal
-			NOT = {
-				has_title_law_flag = elective_succession_law
-			}
-		}
-	}
-
-	demand = { # The effect of pressing demand
-		save_scope_as = faction
-
-		faction_leader = {
-			save_scope_as = faction_leader
-		}
-
-		faction_target = {
-			save_scope_as = faction_target
-		}
-
-		# Let the human players in the faction know that the demand will be sent
-		every_faction_member = {
-			limit = {
-				is_ai = no
-				NOT = { this = scope:faction.faction_leader }
-			}
-			# trigger_event = faction_demand.0105
-		}
-
-		# Send the actual demand in 5 days
-		faction_target = {
-			trigger_event = {
-				id = faction_demand.3001
-				days = 5
-			}
-		}
-	}
-
-	ai_demand_chance = {
-		base = 0
-
-		# 30% base chance at minimum power (80%), increasing linearly
-		compare_modifier = {
-			value = faction_power
-			multiplier = 0.375
-		}
-
-		# Once the faction has a good chance to win (10% stronger than liege) demand chance increases much more rapidly.
-		compare_modifier = {
-			trigger = {	faction_power > 110 }
-			value = faction_power
-			multiplier = 0.75
-		}
-
-		# Less likely if already in a war with an external ruler - the Liberty Faction is pretty sporting
-		modifier = {
-			add = -75
-			faction_target = {
-				any_war_enemy = {
-					NOT = {
-						target_is_liege_or_above = root.faction_target
-					}
-				}
-			}
-		}
-	}
-
-	is_character_valid = {
-		common_character_validity_trigger = {
-			FACTION_TARGET = scope:faction.faction_target
-		}
-	}
-
-	can_character_create_ui = {
-		base_faction_trigger = { FACTION_TYPE = succession_elective_faction }
-
-		common_can_character_create_trigger = {
-			FACTION_TARGET = scope:target
-		}
-
-		custom_description = {
-        	text = custom_succession_law_check
-			subject = scope:target
-        	scope:target.primary_title = {
-            	NOR = {
-					has_title_law = princely_elective_succession_law
-					has_title_law = feudal_elective_succession_law
-					has_title_law = saxon_elective_succession_law
-					has_title_law = scandinavian_elective_succession_law
-					has_title_law = gaelic_elective_succession_law
-					has_title_law = tribal_elective_succession_law
-				}
+    power_threshold = {
+        base = 80
+        modifier = {
+            add = 20
+            faction_target = {
+                has_perk = hard_rule_perk
             }
-		}
-	}
+            desc = "FACTION_POWER_HARD_RULE"
+        }
+    }
 
-	can_character_create = {
-		common_can_character_create_trigger = {
-			FACTION_TARGET = scope:target
-		}
+    requires_county = no
+    requires_character = yes
 
-		custom_description = {
-        	text = "custom_succession_law_check" # Localization key
-			subject = scope:target
-        	scope:target.primary_title = {
-            	NOR = {
-					has_title_law = princely_elective_succession_law
-					has_title_law = feudal_elective_succession_law
-					has_title_law = saxon_elective_succession_law
-					has_title_law = scandinavian_elective_succession_law
-					has_title_law = gaelic_elective_succession_law
-					has_title_law = tribal_elective_succession_law
-				}
+    # Faction existence is valid
+    is_valid = {
+        any_faction_member = {
+            exists = this
+        }
+    }
+
+    # Validity checks for characters
+    is_character_valid = {
+        is_landed = yes
+        highest_held_title_tier >= tier_county
+
+        liege = {
+            government_has_flag = government_is_feudal
+            primary_title = {
+                NOR = {
+                    has_title_law = elective_succession_law
+                    has_title_law = feudal_elective_succession_law
+                    has_title_law = tanistry_elective_succession_law
+                    has_title_law = scandinavian_elective_succession_law
+                    has_title_law = princely_elective_succession_law
+                }
             }
-		}
-	}
+            highest_held_title_tier >= tier_kingdom
+        }
+    }
 
-	can_character_join = {
-		common_can_character_join_trigger = {
-			FACTION_TARGET = scope:faction.faction_target
-		}
+    # Validity checks for counties
+    is_county_valid = {
+        holder = scope:faction.faction_target
+    }
 
-		OR = {
-			is_ai = no
-			scope:faction.faction_target.primary_title = {
-            	NOR = {
-					has_title_law = princely_elective_succession_law
-					has_title_law = feudal_elective_succession_law
-					has_title_law = saxon_elective_succession_law
-					has_title_law = scandinavian_elective_succession_law
-					has_title_law = gaelic_elective_succession_law
-					has_title_law = tribal_elective_succession_law
-				}
-			}
-		}
-	}
+    # Faction creation conditions for characters
+    can_character_create = {
+        is_landed = yes
+        government_has_flag = government_is_feudal
+        primary_title = {
+            has_succession_law = partition_succession_law
+        }
 
-	can_character_become_leader = {
-		is_landed = yes
-	}
+        liege = {
+            government_has_flag = government_is_feudal
+            primary_title = {
+                NOR = {
+                    has_title_law = elective_succession_law
+                    has_title_law = feudal_elective_succession_law
+                    has_title_law = tanistry_elective_succession_law
+                    has_title_law = scandinavian_elective_succession_law
+                    has_title_law = princely_elective_succession_law
+                }
+            }
+            highest_held_title_tier >= tier_kingdom
+        }
+    }
 
-	# ai_create_score = {
-	# 	base = -25 # Join Weight is set primarily based on what Crown Laws a realm has.
+    # Faction creation conditions for UI
+    can_character_create_ui = {
+        can_character_create = yes
+    }
 
-	# 	############
-	# 	# BLOCKERS #
-	# 	############
-	# 	common_create_faction_blockers = {
-	# 		FACTION_TARGET = scope:target
-	# 		FLAG = none
-	# 	}
+    # Faction join conditions for characters
+    can_character_join = {
+        common_can_character_join_trigger = {
+            FACTION_TARGET = scope:faction.faction_target
+        }
 
-	# 	#######################
-	# 	# Standard AI Weights #
-	# 	#
-	# 	# Modifiers for Liberty Factions are inherently small.
-	# 	# This is because Liberty is the 'Default Faction' that vassals are join if they don't want/can't join any other faction.
-	# 	# 'Base Join Weight' depends on the current Crown Authority level.
-	# 	common_faction_modifiers = {
-	# 		FACTION_TARGET = scope:target
-	# 		OPINION_MULTIPLIER = -1
-	# 		MAX_OPINION = 150
-	# 		POWER = 0
-	# 		THRESHOLD = 80
-	# 	}
+        OR = {
+            is_ai = no
+            scope:faction.faction_target.primary_title = {
+                NOR = {
+                    has_title_law = elective_succession_law
+                    has_title_law = feudal_elective_succession_law
+                    has_title_law = tanistry_elective_succession_law
+                    has_title_law = scandinavian_elective_succession_law
+                    has_title_law = princely_elective_succession_law
+                }
+            }
+        }
+    }
 
-	# 	elective_feudal_faction_modifiers = {
-	# 		FACTION_TARGET = scope:target
-	# 	}
-	# }
+    # Faction join conditions for counties
+    can_county_join = {
+        holder = scope:faction.faction_target
+    }
 
-	# ai_join_score = {
-	# 	base = -25 # Join Weight is set primarily based on what Crown Laws a realm has.
+    # Leader conditions
+    can_character_become_leader = {
+        is_landed = yes
+    }
 
-	# 	############
-	# 	# BLOCKERS #
-	# 	common_join_faction_blockers = {
-	# 		FACTION_TARGET = scope:faction.faction_target
-	# 	}
+    # Demand conditions
+    demand = {
+        save_scope_as = faction
 
-	# 	#######################
-	# 	# Standard AI Weights #
-	# 	#AI
-	# 	# Modifiers for Liberty Factions are inherently small.
-	# 	# This is because Liberty is the 'Default Faction' that vassals are join if they don't want/can't join any other faction.
-	# 	common_faction_modifiers = {
-	# 		FACTION_TARGET = scope:faction.faction_target
-	# 		OPINION_MULTIPLIER = -1
-	# 		MAX_OPINION = 100
-	# 		POWER = scope:faction.faction_power
-	# 		THRESHOLD = scope:faction.faction_power_threshold
-	# 	}
+        faction_leader = {
+            save_scope_as = faction_leader
+        }
 
-	# 	elective_feudal_faction_modifiers = {
-	# 		FACTION_TARGET = scope:faction.faction_target
-	# 	}
+        faction_target = {
+            save_scope_as = faction_target
+        }
 
-	# 	modifier = {
-	# 		desc = "FACTION_REASON_POWER_HALFWAY_THRESHOLD"
-	# 		scope:faction.faction_power >= scope:faction.faction_power_halfway_threshold
-	# 		factor = faction_weight_factor_power_halfway_threshold
-	# 	}
-	# 	modifier = {
-	# 		desc = "FACTION_REASON_POWER_PUSHING_THRESHOLD"
-	# 		scope:faction.faction_power >= scope:faction.faction_power_pushing_threshold
-	# 		factor = faction_weight_factor_power_pushing_threshold
-	# 	}
-	# 	modifier = {
-	# 		desc = "FACTION_REASON_POWER_THRESHOLD"
-	# 		scope:faction.faction_power >= scope:faction.faction_power_threshold
-	# 		factor = faction_weight_factor_power_exceeds_threshold
-	# 	}
-	# 	modifier = { # CE1 Divine Mandate perk
-	# 		desc = "FACTION_REASON_LEGITIMACY_LEGACY_4"
-	# 		liege.dynasty = { has_dynasty_perk = ce1_legitimacy_legacy_4 }
-	# 		add = -10
-	# 	}
-		
-	# 	struggle_faction_modifiers = yes
-	# }
+        # Notify human players in the faction about the demand
+        every_faction_member = {
+            limit = {
+                is_ai = no
+                NOT = { this = scope:faction.faction_leader }
+            }
+            trigger_event = faction_demand.3005
+        }
 
-	# county_allow_join = no
-	# county_allow_create = no
-	# county_power = county_levies_to_raise
+        # Send the demand after 5 days
+        faction_target = {
+            trigger_event = {
+                id = faction_demand.3001
+                days = 5
+            }
+        }
+    }
 
-	character_allow_create = yes
+    # AI demand chance
+    ai_demand_chance = {
+        base = 0
+        compare_modifier = {
+            value = faction_power
+            multiplier = 0.5
+        }
+        compare_modifier = {
+            trigger = { faction_power > 110 }
+            value = faction_power
+            multiplier = 1
+        }
+        modifier = {
+            add = 100
+            faction_target = {
+                is_at_war = yes
+            }
+        }
+    }
 
-	character_allow_join = yes
+    # AI create score
+    ai_create_score = {
+        base = -175
 
-	multiple_targeting = no
+        common_create_faction_blockers = {
+            FACTION_TARGET = scope:target
+            FLAG = recent_succession_faction_war
+        }
 
-	ignore_soft_block = yes
+        common_faction_modifiers = {
+            FACTION_TARGET = scope:target
+            OPINION_MULTIPLIER = -0.4
+            MAX_OPINION = 100
+            POWER = 0
+            THRESHOLD = 80
+        }
+    }
+
+    # AI join score
+    ai_join_score = {
+        base = -150
+
+        common_join_faction_blockers = {
+            FACTION_TARGET = scope:faction.faction_target
+        }
+
+        common_faction_modifiers = {
+            FACTION_TARGET = scope:faction.faction_target
+            OPINION_MULTIPLIER = -0.4
+            MAX_OPINION = 100
+            POWER = scope:faction.faction_power
+            THRESHOLD = scope:faction.faction_power_threshold
+        }
+
+        modifier = {
+            desc = "FACTION_REASON_NEIGHBORS"
+            scope:faction = {
+                any_faction_member = {
+                    any_neighboring_realm_same_rank_owner = {
+                        this = root
+                    }
+                }
+            }
+            factor = {
+                value = 1
+                scope:faction = {
+                    every_faction_member = {
+                        if = {
+                            limit = {
+                                any_neighboring_realm_same_rank_owner = {
+                                    this = root
+                                }
+                            }
+                            add = 0.25
+                        }
+                    }
+                }
+            }
+        }
+
+        modifier = {
+            desc = "FACTION_REASON_POWERFUL_VASSAL"
+            factor = 2
+            is_powerful_vassal_of = scope:faction.faction_target
+        }
+    }
+
+    # On war start
+    on_war_start = {
+        # Custom actions on war start can be defined here
+    }
+
+    # Leader leaves
+    leader_leaves = {
+        # Custom actions when the leader leaves can be defined here
+    }
+
+    county_power = county_levies_to_raise
+
+    character_allow_create = yes
+    character_allow_join = yes
+
+    special_character_title = "FACTIONS_WINDOW_LEADER"
+
+    inherit_membership = no
+    county_can_switch_to_other_faction = no
 }
-
-# TODO: FINISH
-# succession_partition_faction = {
-# 	casus_belli = succession_partition_faction_war
-
-# 	short_effect_desc = succession_partition_faction_short_effect_desc
-
-# 	sort_order = 6
-
-# 	show_special_title = yes
-# 	name = FACTION_CLAMAINT_DYNAMIC_NAME
-
-# 	discontent_progress = {
-# 		base = 0
-
-# 		common_discontent_progress_modifier = yes
-# 	}
-
-# 	power_threshold = {
-# 		base = 80
-
-# 		modifier = {
-# 			add = 20
-# 			faction_target = {
-# 				has_perk = hard_rule_perk
-# 			}
-# 			desc = "FACTION_POWER_HARD_RULE"
-# 		}
-
-# 		#Lower the threshold depending on the state of other factions
-# 		dynamic_power_threshold_scripted_modifier = {
-# 			FACTION_TYPE1 = liberty_faction
-# 			FACTION_TYPE2 = independence_faction
-# 			FACTION_TYPE3 = populist_faction
-# 			# Possibly put above populist, but comp issues?
-# 			# FACTION_TYPE4 = courtly_faction
-# 		}
-# 	}
-
-# 	is_valid = { # If the FACTION itself is valid
-# 		OR = {
-# 			scope:liege = {
-# 				has_title_law_flag = elective_succession_law
-# 			}
-# 		}
-# 	}
-
-# 	demand = {
-# 		save_scope_as = faction
-
-# 		faction_leader = {
-# 			save_scope_as = faction_leader
-# 		}
-
-# 		faction_target = {
-# 			save_scope_as = faction_target
-# 		}
-
-# 		# Let the human players in the faction know that the demand will be sent
-# 		every_faction_member = {
-# 			limit = {
-# 				is_ai = no
-# 				NOT = { this = scope:faction.faction_leader }
-# 			}
-# 			# trigger_event = faction_demand.0105
-# 		}
-
-# 		# Send the actual demand in 5 days
-# 		faction_target = {
-# 			trigger_event = {
-# 				# id = faction_demand.0101
-# 				days = 5
-# 			}
-# 		}
-# 	}
-
-# 	ai_demand_chance = {
-# 		base = 0
-
-# 		# 30% base chance at minimum power (80%), increasing linearly
-# 		compare_modifier = {
-# 			value = faction_power
-# 			multiplier = 0.375
-# 		}
-
-# 		# Once the faction has a good chance to win (10% stronger than liege) demand chance increases much more rapidly.
-# 		compare_modifier = {
-# 			trigger = {	faction_power > 110 }
-# 			value = faction_power
-# 			multiplier = 0.75
-# 		}
-
-# 		# Less likely if already in a war with an external ruler - the Liberty Faction is pretty sporting
-# 		modifier = {
-# 			add = -75
-# 			faction_target = {
-# 				any_war_enemy = {
-# 					NOT = {
-# 						target_is_liege_or_above = root.faction_target
-# 					}
-# 				}
-# 			}
-# 		}
-# 	}
-
-# 	is_character_valid = {
-# 		common_character_validity_trigger = {
-# 			FACTION_TARGET = scope:faction.faction_target
-# 		}
-# 	}
-
-# 	can_character_create_ui = {
-# 		base_faction_trigger = { FACTION_TYPE = courtly_faction }
-
-# 		common_can_character_create_trigger = {
-# 			FACTION_TARGET = scope:target
-# 		}
-
-# 		# custom_description = {
-# 		# 	text = has_lowest_crown_authority
-# 		# 	subject = scope:target
-# 		# 	scope:target = {
-# 		# 		OR = {
-# 		# 			has_realm_law = crown_authority_1
-# 		# 			has_realm_law = crown_authority_2
-# 		# 			has_realm_law = crown_authority_3
-# 		# 		}
-# 		# 	}
-# 		# }
-# 	}
-
-# 	can_character_create = {
-# 		common_can_character_create_trigger = {
-# 			FACTION_TARGET = scope:target
-# 		}
-
-# 		# custom_description = {
-# 		# 	text = has_lowest_crown_authority
-# 		# 	subject = scope:target
-# 		# 	scope:target = {
-# 		# 		OR = {
-# 		# 			has_realm_law = crown_authority_1
-# 		# 			has_realm_law = crown_authority_2
-# 		# 			has_realm_law = crown_authority_3
-# 		# 		}
-# 		# 	}
-# 		# }
-# 	}
-
-# 	can_character_join = {
-# 		common_can_character_join_trigger = {
-# 			FACTION_TARGET = scope:faction.faction_target
-# 		}
-
-# 		OR = {
-# 			is_ai = no
-# 			scope:faction.faction_target = {
-# 				OR = {
-# 					scope:liege.domain_size > scope:liege.domain_limit
-
-# 					NOT = {
-# 						has_council_position = councillor_chancellor
-# 					}
-# 					NOT = {
-# 						has_council_position = councillor_steward
-# 					}
-# 					NOT = {
-# 						has_council_position = councillor_spymaster
-# 					}
-# 					NOT = {
-# 						has_council_position = councillor_marshal
-# 					}
-# 				}
-# 			}
-# 		}
-# 	}
-
-# 	ai_create_score = {
-# 		base = 0 # Join Weight is set primarily based on what Crown Laws a realm has.
-
-# 		############
-# 		# BLOCKERS #
-# 		############
-# 		common_create_faction_blockers = {
-# 			FACTION_TARGET = scope:target
-# 			FLAG = recent_courtly_faction_war
-# 		}
-
-# 		#######################
-# 		# Standard AI Weights #
-# 		#
-# 		# Modifiers for Liberty Factions are inherently small.
-# 		# This is because Liberty is the 'Default Faction' that vassals are join if they don't want/can't join any other faction.
-# 		# 'Base Join Weight' depends on the current Crown Authority level.
-# 		common_faction_modifiers = {
-# 			FACTION_TARGET = scope:target
-# 			OPINION_MULTIPLIER = -1
-# 			MAX_OPINION = 0
-# 			POWER = 0
-# 			THRESHOLD = 80
-# 		}
-
-# 		# courtly_faction_modifiers = {
-# 		# 	FACTION_TARGET = scope:target
-# 		# }
-# 	}
-
-# 	ai_join_score = {
-# 		base = 0 # Join Weight is set primarily based on what Crown Laws a realm has.
-
-# 		############
-# 		# BLOCKERS #
-# 		common_join_faction_blockers = {
-# 			FACTION_TARGET = scope:faction.faction_target
-# 		}
-
-# 		#######################
-# 		# Standard AI Weights #
-# 		#AI
-# 		# Modifiers for Liberty Factions are inherently small.
-# 		# This is because Liberty is the 'Default Faction' that vassals are join if they don't want/can't join any other faction.
-# 		common_faction_modifiers = {
-# 			FACTION_TARGET = scope:faction.faction_target
-# 			OPINION_MULTIPLIER = -1
-# 			MAX_OPINION = 0
-# 			POWER = scope:faction.faction_power
-# 			THRESHOLD = scope:faction.faction_power_threshold
-# 		}
-
-# 		# liberty_faction_modifiers = {
-# 		# 	FACTION_TARGET = scope:faction.faction_target
-# 		# }
-
-# 		struggle_faction_modifiers = yes
-# 	}
-
-# 	# county_power = county_levies_to_raise
-# 	county_allow_join = yes
-# 	county_allow_create = no
-
-# 	character_allow_create = yes
-
-# 	character_allow_join = yes
-
-# 	multiple_targeting = yes
-
-# 	special_character_title = "FACTIONS_WINDOW_CLAIMANT"
-
-# 	ignore_soft_block = yes
-# }
-
-# slave_revolt_faction = { }

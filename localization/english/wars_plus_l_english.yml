@@ -21,3 +21,5 @@
   elective_feudal_war_defeat_end_desc:0 "The war has ended in defeat for the elective feudal faction. The traditional succession laws remain unchanged, and the realm remains under its current system."
   elective_feudal_war_defeat_attacker_desc:0 "The attackers have been defeated in their attempt to implement the elective feudal succession law. The traditional succession laws remain in place, and the realm continues under its existing system."
   elective_feudal_faction_war:0 "Elective Feudal Succession War"
+  elective_feudal_war_defeat_desc:0 "The elective feudal faction has been defeated. The realm remains under the traditional succession laws, with no changes to the current system."
+  elective_feudal_war_white_peace_desc:0 "The war has ended in white peace. The elective feudal succession law remains unchanged, and both sides return to their previous positions without any significant changes."
