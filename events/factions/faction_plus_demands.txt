@@ -5,162 +5,162 @@ namespace = faction_demand
 # Elective (Feudal) Faction Demand
 # by Marsonus
 faction_demand.3001 = {
-	type = letter_event
-	sender = scope:faction_leader
-	opening = {
-		desc = "FACTION_DEMAND_ELECTIVE_FEUDAL"
-	}
-	desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_DESC"
+    type = letter_event
+    sender = scope:faction_leader
+    opening = {
+        desc = "FACTION_DEMAND_ELECTIVE_FEUDAL"
+    }
+    desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_DESC"
 
-	trigger = {
-		exists = scope:faction
-	}
+    trigger = {
+        exists = scope:faction
+    }
 
-	option = {
-		name = "FACTION_DEMAND_ACCEPT"
+    option = {
+        name = "FACTION_DEMAND_ACCEPT"
 
-		trigger_event = { on_action = on_faction_demand_accepted }
+        trigger_event = { on_action = on_faction_demand_accepted }
 
-		add_dread = medium_dread_loss
-		# NO LEGITIMACY LOSS FOR ACCEPTING FACTION DEMANDS
-		faction_accept_demand_legitimacy_effect = no
+        add_dread = medium_dread_loss
+        # NO LEGITIMACY LOSS FOR ACCEPTING FACTION DEMANDS
+        faction_accept_demand_legitimacy_effect = no
 
 
-		scope:faction.faction_target.primary_title = {
-			add_title_law = feudal_elective_succession_law
-		} 
+        scope:faction.faction_target.primary_title = {
+            add_title_law = feudal_elective_succession_law
+        }
 
-		add_prestige = -200
+        add_prestige = -200
 
-		add_character_flag = {
-			flag = recent_succession_faction_war
-			years = 10
-		}
+        add_character_flag = {
+            flag = recent_succession_faction_war
+            years = 10
+        }
 
-		scope:faction_leader = {
-			trigger_event = {
-				id = faction_demand.3002
-			}
-		}
+        scope:faction_leader = {
+            trigger_event = {
+                id = faction_demand.3002
+            }
+        }
 
-		scope:faction = {
-			destroy_faction = yes
-		}
+        scope:faction = {
+            destroy_faction = yes
+        }
 
-		# This effect should always be placed here, _after_ everything except the ai_chance.
-		trigger_event = { on_action = on_faction_demand_accepted }
+        # This effect should always be placed here, _after_ everything except the ai_chance.
+        trigger_event = { on_action = on_faction_demand_accepted }
 
-		ai_chance = {
-			base = 10
-			modifier = {
-				add = 90
-				scope:faction = { faction_power >= 100 }
-			}
-			modifier = {
-				add = 50
-				scope:faction = { faction_power >= 125 }
-			}
-			modifier = {
-				add = 50
-				scope:faction = { faction_power >= 150 }
-			}
-			modifier = {
-				add = 50
-				scope:faction = { faction_power >= 200 }
-			}
-			modifier = {
-				add = 50
-				any_character_war = {
-					is_war_leader = root
-					is_defender = root
-				}
-			}
-			modifier = {
-				factor = 0.1
-				any_ally = {
-					NOR = {
-						target_is_liege_or_above = root
-						target_is_vassal_or_below = root
-					}
-					max_military_strength > root.max_military_strength
-				}
-			}
-		}
-	}
+        ai_chance = {
+            base = 10
+            modifier = {
+                add = 90
+                scope:faction = { faction_power >= 100 }
+            }
+            modifier = {
+                add = 50
+                scope:faction = { faction_power >= 125 }
+            }
+            modifier = {
+                add = 50
+                scope:faction = { faction_power >= 150 }
+            }
+            modifier = {
+                add = 50
+                scope:faction = { faction_power >= 200 }
+            }
+            modifier = {
+                add = 50
+                any_character_war = {
+                    is_war_leader = root
+                    is_defender = root
+                }
+            }
+            modifier = {
+                factor = 0.1
+                any_ally = {
+                    NOR = {
+                        target_is_liege_or_above = root
+                        target_is_vassal_or_below = root
+                    }
+                    max_military_strength > root.max_military_strength
+                }
+            }
+        }
+    }
 
-	option = {
-		name = "FACTION_DEMAND_REFUSE"
+    option = {
+        name = "FACTION_DEMAND_REFUSE"
 
-		# This effect should always be placed here, _before_ all the other effects in the block.
-		trigger_event = { on_action = on_faction_demand_rejected }
+        # This effect should always be placed here, _before_ all the other effects in the block.
+        trigger_event = { on_action = on_faction_demand_rejected }
 
-		show_as_tooltip = {
-			scope:faction = {
-				faction_start_war = {}
-			}
-		}
+        show_as_tooltip = {
+            scope:faction = {
+                faction_start_war = {}
+            }
+        }
 
-		scope:faction_leader = {
-			trigger_event = {
-				id = faction_demand.3003
-				days = 1
-			}
-		}
+        scope:faction_leader = {
+            trigger_event = {
+                id = faction_demand.3003
+                days = 1
+            }
+        }
 
-		ai_chance = {
-			base = 100
-			ai_value_modifier = {
-				ai_boldness = 4.0
-			}
-			modifier = {
-				add = 50
-				scope:faction = { faction_power < 80 }
-			}
-			modifier = {
-				add = 100
-				scope:faction = { faction_power < 60 }
-			}
-			modifier = {
-				add = 1000
-				scope:faction = { faction_power < 40 }
-			}
-		}		
-	}
+        ai_chance = {
+            base = 100
+            ai_value_modifier = {
+                ai_boldness = 4.0
+            }
+            modifier = {
+                add = 50
+                scope:faction = { faction_power < 80 }
+            }
+            modifier = {
+                add = 100
+                scope:faction = { faction_power < 60 }
+            }
+            modifier = {
+                add = 1000
+                scope:faction = { faction_power < 40 }
+            }
+        }
+    }
 }
 
 # Elective (Feudal) Faction Demand Accepted
 # by Marsonus
 faction_demand.3002 = {
-	type = letter_event
-	sender = scope:faction.faction_target
-	opening = {
-		desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_ACCEPTED"
-	}
-	desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_ACCEPTED_DESC"
+    type = letter_event
+    sender = scope:faction.faction_target
+    opening = {
+        desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_ACCEPTED"
+    }
+    desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_ACCEPTED_DESC"
 
-	option = {
-		name = "FACTION_DEMAND_ACCEPTED_OPT"
-		custom_tooltip = faction_demand.3002.tt
-	}
+    option = {
+        name = "FACTION_DEMAND_ACCEPTED_OPT"
+        custom_tooltip = faction_demand.3002.tt
+    }
 }
 
 # Elective (Feudal) Faction Demand Refused
 # by Marsonus
 faction_demand.3003 = {
-	type = letter_event
-	sender = scope:faction_target 
-	opening = {
-		desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_REFUSED"
-	}
-	desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_REFUSED_DESC"
+    type = letter_event
+    sender = scope:faction_target
+    opening = {
+        desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_REFUSED"
+    }
+    desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_REFUSED_DESC"
 
-	option = {
-		name = "FACTION_DEMAND_REFUSED_OPT"
+    option = {
+        name = "FACTION_DEMAND_REFUSED_OPT"
 		scope:faction = {
 			faction_start_war = {}
 
 			every_faction_member = {
-				limit = { NOT = { this = scope:faction.faction_leader } {}
+				limit = { NOT = { this = scope:faction.faction_leader } }
 				trigger_event = faction_demand.3004
 			}
 		}
@@ -170,30 +170,30 @@ faction_demand.3003 = {
 # Elective (Feudal) Faction Demand Refused Member Notice
 # by Marsonus
 faction_demand.3004 = {
-	type = letter_event
-	sender = scope:faction_target
-	opening = {
-		desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_REFUSED"
-	}
-	desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_DESC"
+    type = letter_event
+    sender = scope:faction_target
+    opening = {
+        desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_REFUSED"
+    }
+    desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_DESC"
 
-	option = {
-		name = "FACTION_DEMAND_REFUSED_OPT"
-	}
+    option = {
+        name = "FACTION_DEMAND_REFUSED_OPT"
+    }
 }
 
 
 # Elective (Feudal) Faction Demand Send Notice
 # by Marsonus
 faction_demand.3005 = {
-	type = letter_event
-	sender = scope:faction_leader
-	opening = {
-		desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_SEND_DEMAND_NOTIFICATION"
-	}
-	desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_SEND_DEMAND_NOTIFICATION_DESC"
+    type = letter_event
+    sender = scope:faction_leader
+    opening = {
+        desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_SEND_DEMAND_NOTIFICATION"
+    }
+    desc = "FACTION_DEMAND_ELECTIVE_FEUDAL_SEND_DEMAND_NOTIFICATION_DESC"
 
-	option = {
-		name = "FACTION_DEMAND_SEND_DEMAND_NOTIFICATION_OPT"
-	}
+    option = {
+        name = "FACTION_DEMAND_SEND_DEMAND_NOTIFICATION_OPT"
+    }
 }

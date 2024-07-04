@@ -3,5 +3,16 @@
  elective_feudal_faction:0 "Elective Succession Faction"
  elective_feudal_faction_desc:0 "The Succession [faction|E] seeks to change the power through elections by changing [liege|E]'s [primary_title|E] succession through election."
  elective_feudal_faction_short_effect_desc:0 "Wants different [succession_law|E]"
+
  FACTION_ELECTIVE_FEUDAL_NAME:0 "Elective Faction"
  FACTION_ELECTIVE_FEUDAL_TITLE_NAME:0 "Elective Change Revolt"
+
+ FACTION_DEMAND_ELECTIVE_FEUDAL:0 "Elective Demand"
+ FACTION_DEMAND_ELECTIVE_FEUDAL_DESC:0 "[faction_leader.Custom2('AppropriateGreetingNegative', ROOT.Char)]\n\nIt is time for you to recognize the full Elective authority of [faction_leader.GetPrimaryTitle.GetNameNoTier] and the other states in the [faction.GetName]. Accept our demands or face our swords on the battlefield!"
+ FACTION_DEMAND_ELECTIVE_FEUDAL_ACCEPTED:0 "Elective Demands Accepted"
+ FACTION_DEMAND_ELECTIVE_FEUDAL_ACCEPTED_DESC:1 "[faction_target.Custom2('AppropriateGreetingNegative', ROOT.Char)]\n\nYour misguided demands will only serve to weaken us all. Regardless, to spare the realm from futile bloodshed, I am forced to accept your request for Elective."
+ FACTION_DEMAND_ELECTIVE_FEUDAL_REFUSED:0 "Elective Demands Refused"
+ FACTION_DEMAND_ELECTIVE_FEUDAL_REFUSED_DESC:0 "[faction_target.Custom2('AppropriateGreetingNegative', ROOT.Char)]\n\nYour shameful attempt at blackmail has not succeeded. No matter how many corrupted souls you have enticed to help carry out your plan, I will not give in without a fight. I'd rather die defending what is rightfully mine!"
+ FACTION_DEMAND_ELECTIVE_FEUDAL_SEND_DEMAND_NOTIFICATION:0 "Elective!"
+ FACTION_DEMAND_ELECTIVE_FEUDAL_SEND_DEMAND_NOTIFICATION_DESC:0 "The moment has come! The unified voices of the [faction.GetName] agree that [faction_target.GetName] has lost any right of rule [faction_target.GetSheHe] might once have had. We shall be given our Elective or take it by force!"
+ faction_demand.3002.tt:0 "All Faction Members Gain Elective!"
