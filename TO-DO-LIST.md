@@ -6,7 +6,7 @@
 <!-- - Accepting demand doesn't change title law -->
 
 [Add]
-- Add localization for everything within elective feudal faction
+<!-- - Add localization for everything within elective feudal faction -->
 
 [Adjust]
 - Balancing for creating the faction & joining
